@@ -40,6 +40,7 @@ public class ConexionBD {
         String query = "SELECT * FROM productos WHERE id = " + id;
         Statement stmt = conexion.createStatement();
         ResultSet rs = stmt.executeQuery(query);
+        
         while(rs.next()){
             txtId.setText(rs.getString("id"));
             txtDescripcion.setText(rs.getString("descripcion"));
@@ -53,8 +54,10 @@ public class ConexionBD {
         
         int id = Integer.parseInt(txtId.getText());
         String descripcion = txtDescripcion.getText();
-        int precio = Integer.parseInt(txtPrecio.getText());
-        int total = Integer.parseInt(txtTotal.getText());
+        double precio = Double.parseDouble(txtPrecio.getText());
+        double total = precio + (precio * 0.15);
+        txtTotal.setText(String.valueOf(total));
+        // double total = Integer.parseInt(txtTotal.getText());
         
         String query = "INSERT INTO productos VALUES (" + id + ", '" + descripcion + "', " + precio + ", " + total + ");";
         PreparedStatement stmt = conexion.prepareStatement(query);
